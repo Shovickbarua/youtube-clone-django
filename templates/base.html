@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Youtube Clone{% endblock %}</title>
+    <title>{% block title %}YouTube Clone{% endblock %}</title>
 
     <link rel="stylesheet" href="{% static 'css/variables.css' %}">
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
@@ -18,36 +18,35 @@
 <body>
     <nav class="navbar">
         <a href="/" class="navbar-brand">
-            <span class="brand-icon"></span>
+            <span class="brand-icon">▶</span>
+            YouTube Clone
         </a>
         <ul class="navbar-nav">
             {% if user.is_authenticated %}
-            <li ><a href="{% url 'videos:upload' %}" class="nab-link btn-upload">Upload</a></li>
-            <li><span class="nav-username">{{ user.username }}</span></li>
-            <li>
-                <form method="post" action="{% url 'accounts:logout' %}" class="logout-form">
-                    {% csrf_token %}
-                    <button type="submit" class="nab-link btn-outline logout-btn">Logout</button>
-                </form>
-            </li>
+                <li><a href="{% url 'videos:upload' %}" class="nav-link btn-upload">Upload</a></li>
+                <li><span class="nav-username">{{ user.username }}</span></li>
+                <li>
+                    <form method="post" action="{% url 'accounts:logout' %}" class="logout-form">
+                        {% csrf_token %}
+                        <button type="submit" class="nav-link btn-outline logout-btn">Logout</button>
+                    </form>
+                </li>
             {% else %}
-            <li><a href="{% url 'accounts:login' %}" class="nab-link">Login</a></li>
-            <li><a href="{% url 'accounts:signup' %}" class="nab-link btn-primary">Signup</a></li>
+                <li><a href="{% url 'accounts:login' %}" class="nav-link">Sign In</a></li>
+                <li><a href="{% url 'accounts:register' %}" class="nav-link btn-primary">Sign Up</a></li>
             {% endif %}
-        </ul>    
+        </ul>
     </nav>
     <main class="main-content">
         {% if messages %}
             <ul class="messages">
                 {% for message in messages %}
-                    <li class="message {{ message.tags }}">
-                        {{ message }}
-                    </li>
+                    <li class="message {{message.tags}}">{{ message }}</li>
                 {% endfor %}
             </ul>
         {% endif %}
-        {% block content %}
-        {% endblock %}
+
+        {% block content %}{% endblock %}
     </main>
 
     {% block extra_js %}{% endblock %}
